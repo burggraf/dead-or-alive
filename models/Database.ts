@@ -18,6 +18,19 @@ export interface DeviceLog {
   "xtra"?: any | null 
   "created_at"?: Date | null 
 }
+export interface GameData {
+  "id"?: string 
+  "user_id": string 
+  "person_id": string 
+  "help_category"?: number 
+  "help_famous_as"?: number 
+  "help_birthdate"?: number 
+  "help_birthplace"?: number 
+  "help_notes"?: number 
+  "help_photo"?: number 
+  "score"?: number 
+  "created_at"?: Date | null 
+}
 export interface People {
   "id"?: string 
   "name"?: string | null 
@@ -28,6 +41,7 @@ export interface People {
   "died"?: string | null 
   "notes"?: string | null 
   "photo_info"?: any | null 
+  "alt_name"?: string | null 
 }
 export interface People2 {
   "id"?: string | null 

@@ -3,7 +3,7 @@ import { createClient, Provider, SupabaseClient, User } from '@supabase/supabase
 import { BehaviorSubject } from 'rxjs';
 import { keys } from 'src/environments/supabase';
 import { Device } from '@capacitor/device';
-import { People } from 'models/Database';
+import { People, GameData } from 'models/Database';
 
 const supabase: SupabaseClient = createClient(keys.SUPABASE_URL, keys.SUPABASE_KEY);
 
@@ -109,13 +109,24 @@ export class SupabaseService {
   }
 
   public getRandomPerson = async () => {
+    /*
     const { data, error } = await supabase
       .from('people')
       .select('*')
       .order('id')
       .gte('id', this.uuid())
       .limit(1);
-      return { data, error };
+      */
+     const { data, error } = await supabase
+     .rpc('get_random_person');
+     return { data, error };
+  }
+
+  public saveGameData = async (gamedata: GameData) => {
+    const { data, error } = await supabase
+    .from('game_data')
+    .insert(gamedata,{returning: 'minimal'});
+    return { data, error };
   }
 
   // ************** logDeviceInfo ****************

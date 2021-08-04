@@ -48,12 +48,12 @@
       <ion-row>
         <ion-col>
 
-          <ion-card>
+          <ion-card *ngIf="person.category">
             <ion-item>
               <ion-icon name="folder-outline" slot="start"></ion-icon>
               <ion-label>Category</ion-label>
-              <ion-button color="primary" strong fill="outline" slot="end" 
-              (click)="toggles.category = !toggles.category">{{ toggles.category ? 'Hide' : 'View'}}</ion-button>
+              <ion-button color="primary" strong fill="outline" slot="end" [disabled]="result.length===0 && toggles.category"
+              (click)="toggles.category = !toggles.category">{{ toggles.category ? 'Hide' : 'View (-1)'}}</ion-button>
             </ion-item>
           
             <ion-card-content class="ion-text-center" *ngIf="toggles.category">
@@ -62,12 +62,12 @@
           </ion-card>
           
       
-          <ion-card>
+          <ion-card *ngIf="person.famous_as">
             <ion-item>
               <ion-icon name="person-outline" slot="start"></ion-icon>
               <ion-label>Famous As</ion-label>
-              <ion-button color="primary" strong fill="outline" slot="end" 
-              (click)="toggles.famous_as = !toggles.famous_as">{{ toggles.famous_as ? 'Hide' : 'View'}}</ion-button>
+              <ion-button color="primary" strong fill="outline" slot="end" [disabled]="result.length===0 && toggles.famous_as"
+              (click)="toggles.famous_as = !toggles.famous_as">{{ toggles.famous_as ? 'Hide' : 'View (-2)'}}</ion-button>
             </ion-item>
           
             <ion-card-content class="ion-text-center" *ngIf="toggles.famous_as">
@@ -75,12 +75,12 @@
             </ion-card-content>
           </ion-card>
       
-          <ion-card>
+          <ion-card *ngIf="person.birthplace">
             <ion-item>
               <ion-icon name="navigate-outline" slot="start"></ion-icon>
               <ion-label>Birth Place</ion-label>
-              <ion-button color="primary" strong fill="outline" slot="end" 
-              (click)="toggles.birthplace = !toggles.birthplace">{{ toggles.birthplace ? 'Hide' : 'View'}}</ion-button>
+              <ion-button color="primary" strong fill="outline" slot="end" [disabled]="result.length===0 && toggles.birthplace"
+              (click)="toggles.birthplace = !toggles.birthplace">{{ toggles.birthplace ? 'Hide' : 'View (-1)'}}</ion-button>
             </ion-item>
           
             <ion-card-content class="ion-text-center" *ngIf="toggles.birthplace">
@@ -88,12 +88,12 @@
             </ion-card-content>
           </ion-card>
       
-          <ion-card>
+          <ion-card *ngIf="person.birthdate">
             <ion-item>
               <ion-icon name="calendar-number-outline" slot="start"></ion-icon>
               <ion-label>Birth Date</ion-label>
-              <ion-button color="primary" strong fill="outline" slot="end" 
-              (click)="toggles.birthdate = !toggles.birthdate">{{ toggles.birthdate ? 'Hide' : 'View'}}</ion-button>
+              <ion-button color="primary" strong fill="outline" slot="end" [disabled]="result.length===0 && toggles.birthdate"
+              (click)="toggles.birthdate = !toggles.birthdate">{{ toggles.birthdate ? 'Hide' : 'View (-3)'}}</ion-button>
             </ion-item>
           
             <ion-card-content class="ion-text-center" *ngIf="toggles.birthdate">
@@ -101,12 +101,12 @@
             </ion-card-content>
           </ion-card>
       
-          <ion-card>
+          <ion-card *ngIf="person.notes">
             <ion-item>
               <ion-icon name="book-outline" slot="start"></ion-icon>
               <ion-label>Biography</ion-label>
-              <ion-button color="primary" strong fill="outline" slot="end" 
-              (click)="toggles.notes = !toggles.notes">{{ toggles.notes ? 'Hide' : 'View'}}</ion-button>
+              <ion-button color="primary" strong fill="outline" slot="end" [disabled]="result.length===0 && toggles.notes"
+              (click)="toggles.notes = !toggles.notes">{{ toggles.notes ? 'Hide' : 'View (-4)'}}</ion-button>
             </ion-item>
           
             <ion-card-content *ngIf="toggles.notes">
@@ -116,8 +116,8 @@
     
         </ion-col>
         <ion-col class="ion-text-center"><br>
-            <ion-button color="primary" strong fill="outline"
-            (click)="toggles.photo = !toggles.photo">{{ toggles.photo ? 'Hide Photo' : 'View Photo'}}</ion-button>
+            <ion-button *ngIf="photoURL" color="primary" strong fill="outline" [disabled]="result.length===0 && toggles.photo"
+            (click)="toggles.photo = !toggles.photo">{{ toggles.photo ? 'Hide Photo' : 'View Photo (-2)'}}</ion-button>
             <ion-img *ngIf="toggles.photo" style="height: 300px;" [src]="photoURL"></ion-img>
         </ion-col>
       </ion-row>
