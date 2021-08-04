@@ -115,10 +115,10 @@
           </ion-card>
     
         </ion-col>
-        <ion-col>
-          <ion-col size="12" class="ion-padding">
-            <ion-img style="height: 300px;" [src]="photoURL"></ion-img>
-          </ion-col>  
+        <ion-col class="ion-text-center">
+            <ion-button color="primary" strong fill="outline"
+            (click)="toggles.photo = !toggles.photo">{{ toggles.photo ? 'Hide Photo' : 'View Photo'}}</ion-button>
+            <ion-img *ngIf="toggles.photo" style="height: 300px;" [src]="photoURL"></ion-img>
         </ion-col>
       </ion-row>
     </ion-grid>

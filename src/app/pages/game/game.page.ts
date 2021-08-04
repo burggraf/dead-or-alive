@@ -19,7 +19,8 @@ export class GamePage implements OnInit {
     famous_as: false,
     birthdate: false,
     birthplace: false,
-    notes: false
+    notes: false,
+    photo: false
   };
   public showCredits = false;
   constructor(private supabaseService: SupabaseService, public httpClient: HttpClient) { }
@@ -59,7 +60,8 @@ export class GamePage implements OnInit {
       famous_as: true,
       birthdate: true,
       birthplace: true,
-      notes: true
+      notes: true,
+      photo: true
     };
   }
   nextPerson() {
@@ -70,7 +72,8 @@ export class GamePage implements OnInit {
       famous_as: false,
       birthdate: false,
       birthplace: false,
-      notes: false
+      notes: false,
+      photo: false
     };
     this.getRandomPerson();
   }
