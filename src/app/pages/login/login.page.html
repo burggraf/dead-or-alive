@@ -1,0 +1,230 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <div class="box-400 ion-text-center">
+
+    <div id="container" class="ion-padding" *ngIf="!user">
+  
+      <ion-item lines="none">
+        <h5><b>Email</b></h5>
+      </ion-item>
+  
+      <ion-item lines="none">
+        <ion-input [(ngModel)]="email" type="email" placeholder="email@host.com"></ion-input>
+      </ion-item>
+  
+      <ion-item lines="none">
+        <h5><b>Password</b></h5>
+      </ion-item>
+      <ion-item>
+        <ion-input [(ngModel)]="password" type="password" placeholder="password"></ion-input>
+      </ion-item>
+      
+        <ion-button strong 
+        color="primary" 
+        [disabled]="password.length === 0 || !validateEmail()"
+        (click)="signInWithEmail()" 
+        expand="block">
+        <ion-icon name="log-in" size="large" slot="start"></ion-icon>
+        Sign in with Email</ion-button>
+
+        <ion-button strong 
+        color="primary" 
+        [disabled]="password.length === 0 || !validateEmail()"
+        (click)="signUpWithEmail()" 
+        expand="block">
+        <ion-icon name="mail" size="large" slot="start"></ion-icon>
+        Register with Email</ion-button>
+
+        <ion-button strong 
+        color="primary" 
+        [disabled]="!validateEmail() || password.length > 0"
+        (click)="signInWithMagicLink()" 
+        expand="block">
+        <ion-icon name="color-wand" size="large" slot="start"></ion-icon>
+        Email Link (Password-less)</ion-button>
+
+
+      <ion-item lines="none" (click)="resetPassword()">
+        <ion-label [class]="validateEmail() ? 'ion-text-center resetLink' : 'ion-text-center resetLinkDisabled'">Reset Password</ion-label>
+      </ion-item>
+    
+      <div>
+        &nbsp;
+      </div>
+
+      <div>
+        <strong>Sign in with provider:</strong>
+      </div>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <ion-button (click)="signInWithProvider('google')">
+                    <ion-icon size="large" name="logo-google"></ion-icon>
+                  </ion-button>          
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <ion-label>Google</ion-label>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-col>
+          <ion-col>
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <ion-button (click)="signInWithProvider('facebook')">
+                    <ion-icon size="large" name="logo-facebook"></ion-icon>
+                  </ion-button>          
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <ion-label>Facebook</ion-label>
+                </ion-col>
+              </ion-row>
+            </ion-grid>            
+          </ion-col>
+          <ion-col>
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <ion-button (click)="signInWithProvider('github')">
+                    <ion-icon size="large" name="logo-github"></ion-icon>
+                  </ion-button>          
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <ion-label>Github</ion-label>
+                </ion-col>
+              </ion-row>
+            </ion-grid>            
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <ion-button (click)="signInWithProvider('twitter')">
+                    <ion-icon size="large" name="logo-twitter"></ion-icon>
+                  </ion-button>          
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <ion-label>Twitter</ion-label>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-col>
+          <ion-col>
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <ion-button (click)="signInWithProvider('bitbucket')">
+                    <ion-icon size="large" name="logo-bitbucket"></ion-icon>
+                  </ion-button>          
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <ion-label>Bitbucket</ion-label>
+                </ion-col>
+              </ion-row>
+            </ion-grid>            
+          </ion-col>
+          <ion-col>
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <ion-button (click)="signInWithProvider('gitlab')">
+                    <ion-icon size="large" name="logo-gitlab"></ion-icon>
+                  </ion-button>          
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <ion-label>GitLab</ion-label>
+                </ion-col>
+              </ion-row>
+            </ion-grid>            
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <ion-button disabled (click)="signInWithProvider('apple')">
+                    <ion-icon size="large" name="logo-apple"></ion-icon>
+                  </ion-button>          
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <ion-label>Apple</ion-label>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-col>
+          <ion-col>
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <ion-button (click)="signInWithProvider('discord')">
+                    <ion-icon size="large" name="logo-discord"></ion-icon>
+                  </ion-button>          
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <ion-label>Discord</ion-label>
+                </ion-col>
+              </ion-row>
+            </ion-grid>            
+          </ion-col>
+          <ion-col>
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <ion-button (click)="signInWithProvider('twitch')">
+                    <ion-icon size="large" name="logo-twitch"></ion-icon>
+                  </ion-button>          
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <ion-label>Twitch</ion-label>
+                </ion-col>
+              </ion-row>
+            </ion-grid>            
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+  <div class="ion-padding ion-text-center" *ngIf="user">
+    <br>User: &lt;{{ user.email }}&gt;<br><br>
+    <ion-button strong (click)="signOut()" expand="block" [disabled]="!user">Sign Out</ion-button>
+  </div>
+
+</div>
+</div>
+
+
+</ion-content>
