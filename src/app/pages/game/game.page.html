@@ -76,7 +76,11 @@
         </ion-col>
       </ion-row>
 
-
+      <ion-row *ngIf="photoURL">
+        <ion-col size="12" class="ion-padding">
+          <ion-img style="height: 300px;" [src]="photoURL"></ion-img>
+        </ion-col>
+      </ion-row>
     </ion-grid>
  
 

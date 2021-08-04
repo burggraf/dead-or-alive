@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { People } from 'models/Database';
 import { SupabaseService } from 'src/app/services/supabase.service';
 // import { Observable } from 'rxjs/Observable';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-game',
@@ -12,6 +12,7 @@ import { HttpClient } from '@angular/common/http';
 export class GamePage implements OnInit {
 
   public person: People;
+  public photoURL: string = '';
   constructor(private supabaseService: SupabaseService, public httpClient: HttpClient) { }
 
   ngOnInit() {
@@ -24,13 +25,10 @@ export class GamePage implements OnInit {
     else {
       if (data.length) {
         this.person = data[0];
-        console.log(`https://en.wikipedia.org/w/api.php?action=query&titles=${encodeURIComponent(this.person.name)}&prop=pageimages&format=json&pithumbsize=300`);
-        const subscription = this.httpClient.get(
-          `https://en.wikipedia.org/w/api.php?action=query&titles=${encodeURIComponent(this.person.name)}&prop=pageimages&format=json&pithumbsize=300`)
-          .subscribe((data) => {
-            console.log('data', data);
-          });
-        // https://en.wikipedia.org/w/api.php?action=query&titles=Justin+Long&prop=pageimages&format=json&pithumbsize=300
+        console.log(this.person?.photo_info);
+        if (this.person?.photo_info?.source) {
+          this.photoURL = this.person.photo_info.source;
+        }
       } else {
         console.error('error getting person - array is empty');
       }
