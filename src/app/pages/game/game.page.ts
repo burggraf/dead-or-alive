@@ -35,7 +35,6 @@ export class GamePage implements OnInit {
     else {
       if (data.length) {
         this.person = data[0];
-        console.log(this.person?.photo_info);
         if (this.person?.photo_info?.source) {
           this.photoURL = this.person.photo_info.source;
         } else {
@@ -48,7 +47,6 @@ export class GamePage implements OnInit {
   }
 
   answer(choice: boolean) {
-    console.log('choice', choice);
     const isDead = this.person.died?.length > 0;
     if (choice === isDead) {
       this.result = 'Correct';
