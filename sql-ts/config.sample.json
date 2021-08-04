@@ -1,0 +1,15 @@
+{
+    "client":"pg",
+    "connection": {
+      "host": "DATABASE_DOMAIN_HERE",
+      "user": "postgres",
+      "password": "DATABASE_PASSWORD_HERE",
+      "database" : "postgres"
+    },
+    "interfaceNameFormat": "${table}",
+    "folder": "../models",
+    "schemas": ["public"],
+    "template": "./template.handlebars",
+    "tableNameCasing": "pascal"
+  }
+  
