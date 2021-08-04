@@ -13,6 +13,7 @@ export class GamePage implements OnInit {
 
   public person: People;
   public photoURL: string = '';
+  public result: string = '';
   constructor(private supabaseService: SupabaseService, public httpClient: HttpClient) { }
 
   ngOnInit() {
@@ -33,6 +34,21 @@ export class GamePage implements OnInit {
         console.error('error getting person - array is empty');
       }
     }
+  }
+
+  answer(choice: boolean) {
+    console.log('choice', choice);
+    const isDead = this.person.died?.length > 0;
+    if (choice === isDead) {
+      this.result = 'Correct';
+    } else {
+      this.result = 'Incorrect';
+    }
+  }
+  nextPerson() {
+    this.result = '';
+    this.photoURL = '';
+    this.getRandomPerson();
   }
 
 }

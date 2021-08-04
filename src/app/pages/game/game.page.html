@@ -12,22 +12,28 @@
 
     
     <ion-grid>
-      <ion-row>
+      <ion-row *ngIf="!result">
         <ion-col class="ion-padding ion-text-center">
           <h1><b>{{ person.name }}</b></h1>
         </ion-col>
       </ion-row>
-      <ion-row>
+      <ion-row *ngIf="result">
         <ion-col class="ion-padding ion-text-center">
-          <h1><b>{{ person.name }} <span *ngIf="!person.died">is alive</span><span *ngIf="person.died">died on {{ person.died }}</span></b></h1>
+          <h1><b><span>{{ result }}, </span>{{ person.name }} <span *ngIf="!person.died">is alive</span><span *ngIf="person.died">died on {{ person.died }}</span></b></h1>
         </ion-col>
       </ion-row>
-      <ion-row>
+      <ion-row *ngIf="result.length === 0">
         <ion-col size="6" class="ion-padding">
-          <ion-button strong expand="block" color="danger">Dead</ion-button>
+          <ion-button (click)="answer(true)" strong expand="block" color="danger">Dead</ion-button>
         </ion-col>
         <ion-col size="6" class="ion-padding">
-          <ion-button strong expand="block" color="success">Alive</ion-button>
+          <ion-button (click)="answer(false)" strong expand="block" color="success">Alive</ion-button>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="result.length > 0">
+        <ion-col size="12" class="ion-padding">
+          <ion-button (click)="nextPerson()" strong expand="block" color="primary">Next Person</ion-button>
         </ion-col>
       </ion-row>
 
