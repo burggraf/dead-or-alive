@@ -21,6 +21,7 @@ export class GamePage implements OnInit {
     birthplace: false,
     notes: false
   };
+  public showCredits = false;
   constructor(private supabaseService: SupabaseService, public httpClient: HttpClient) { }
 
   ngOnInit() {

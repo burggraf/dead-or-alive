@@ -6,7 +6,7 @@
     <ion-title>Dead or Alive</ion-title>
 
     <ion-buttons slot="end">
-      <ion-button>
+      <ion-button (click)="showCredits = !showCredits">
         <ion-icon slot="icon-only" color="dark" src="/assets/reaper.svg"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -14,7 +14,7 @@
 </ion-header>
 
 <ion-content>
-  <div class="" *ngIf="person">
+  <div class="" *ngIf="person && !showCredits">
     
     <ion-grid>
       <ion-row *ngIf="!result">
@@ -123,6 +123,57 @@
       </ion-row>
     </ion-grid>
 
+
+  </div>
+
+  <div class="ion-padding" *ngIf="showCredits">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>Hey, is the guy from that movie...</ion-card-subtitle>
+        <ion-card-title>Dead or Alive</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+        The best part of watching reruns of "The Love Boat" is watching the guest
+        stars at the beginning of each episode, and trying to figure out if each
+        one is still alive.  Or did I hear they died last year?
+        <br><br>
+        If you're playing this game, it's only because your person.died field is still null.
+        But how many of these celebrities are still alive?  Let's find out!
+      </ion-card-content>
+    </ion-card>
+    
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>Design & Programming</ion-card-subtitle>
+        <ion-card-title>Mark Burggraf</ion-card-title>
+        <ion-card-subtitle>Front End Tools</ion-card-subtitle>
+        <ion-item href="https://ionicframework.com">
+          <ion-label>Ionic Framework</ion-label>
+        </ion-item>
+        <ion-item href="https://angular.io">
+          <ion-label>Angular</ion-label>
+        </ion-item>
+
+        <ion-card-subtitle>Back End Tools</ion-card-subtitle>
+        <ion-item href="https://supabase.io">
+          <ion-label>Supabase</ion-label>
+        </ion-item>
+        <ion-item href="https://postgresql.org">
+          <ion-label>PostgreSQL</ion-label>
+        </ion-item>
+
+        <ion-card-subtitle>Source Code</ion-card-subtitle>
+        <ion-item href="https://github.com/burggraf/dead-or-alive">
+          <ion-label>Open Source Github Repository</ion-label>
+        </ion-item>
+
+      </ion-card-header>
+    </ion-card>
+    <div class="ion-padding">
+      <ion-button (click)="showCredits = false" strong expand="block" color="primary">OK</ion-button>
+    </div>
 
   </div>
 </ion-content>
