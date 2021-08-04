@@ -37,6 +37,8 @@ export class GamePage implements OnInit {
         console.log(this.person?.photo_info);
         if (this.person?.photo_info?.source) {
           this.photoURL = this.person.photo_info.source;
+        } else {
+          this.photoURL = '/assets/no-image.svg';
         }
       } else {
         console.error('error getting person - array is empty');
