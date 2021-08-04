@@ -108,7 +108,15 @@ export class SupabaseService {
     return { Profile: data, error };
   }
 
-
+  public getRandomPerson = async () => {
+    const { data, error } = await supabase
+      .from('people')
+      .select('*')
+      .order('id')
+      .gte('id', this.uuid())
+      .limit(1);
+      return { data, error };
+  }
 
   // ************** logDeviceInfo ****************
 
@@ -133,6 +141,15 @@ export class SupabaseService {
       console.error('logDeviceInfo errror', rpcerror);
     }
   };
+
+  public uuid() {
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (char) => {
+      let random = Math.random() * 16 | 0;
+      let value = char === "x" ? random : (random % 4 + 8);
+      return value.toString(16);     
+    });
+  }
+
 
 
 }

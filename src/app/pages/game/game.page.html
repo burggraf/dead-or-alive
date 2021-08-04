@@ -8,5 +8,77 @@
 </ion-header>
 
 <ion-content>
+  <div class="ion-padding" *ngIf="person">
 
+    
+    <ion-grid>
+      <ion-row>
+        <ion-col class="ion-padding ion-text-center">
+          <h1><b>{{ person.name }}</b></h1>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="ion-padding ion-text-center">
+          <h1><b>{{ person.name }} <span *ngIf="!person.died">is alive</span><span *ngIf="person.died">died on {{ person.died }}</span></b></h1>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6" class="ion-padding">
+          <ion-button strong expand="block" color="danger">Dead</ion-button>
+        </ion-col>
+        <ion-col size="6" class="ion-padding">
+          <ion-button strong expand="block" color="success">Alive</ion-button>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="2" class="ion-padding">
+          <ion-label>category</ion-label>
+        </ion-col>
+        <ion-col size="10" class="ion-padding">
+          <ion-label>{{ person.category }}</ion-label>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="2" class="ion-padding">
+          <ion-label>famous as</ion-label>
+        </ion-col>
+        <ion-col size="10" class="ion-padding">
+          <ion-label>{{ person.famous_as }}</ion-label>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="2" class="ion-padding">
+          <ion-label>birth place</ion-label>
+        </ion-col>
+        <ion-col size="10" class="ion-padding">
+          <ion-label>{{ person.birthplace }}</ion-label>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="2" class="ion-padding">
+          <ion-label>birth date</ion-label>
+        </ion-col>
+        <ion-col size="10" class="ion-padding">
+          <ion-label>{{ person.birthdate }}</ion-label>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="2" class="ion-padding">
+          <ion-label>notes</ion-label>
+        </ion-col>
+        <ion-col size="10" class="ion-padding">
+          <ion-label>{{ person.notes }}</ion-label>
+        </ion-col>
+      </ion-row>
+
+
+    </ion-grid>
+ 
+
+  </div>
 </ion-content>
