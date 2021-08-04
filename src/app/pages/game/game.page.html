@@ -36,52 +36,75 @@
           <ion-button (click)="nextPerson()" strong expand="block" color="primary">Next Person</ion-button>
         </ion-col>
       </ion-row>
+    </ion-grid>
 
-      <ion-row>
-        <ion-col size="2" class="ion-padding">
-          <ion-label>category</ion-label>
-        </ion-col>
-        <ion-col size="10" class="ion-padding">
-          <ion-label>{{ person.category }}</ion-label>
-        </ion-col>
-      </ion-row>
-
-      <ion-row>
-        <ion-col size="2" class="ion-padding">
-          <ion-label>famous as</ion-label>
-        </ion-col>
-        <ion-col size="10" class="ion-padding">
-          <ion-label>{{ person.famous_as }}</ion-label>
-        </ion-col>
-      </ion-row>
-
-      <ion-row>
-        <ion-col size="2" class="ion-padding">
-          <ion-label>birth place</ion-label>
-        </ion-col>
-        <ion-col size="10" class="ion-padding">
-          <ion-label>{{ person.birthplace }}</ion-label>
-        </ion-col>
-      </ion-row>
-
-      <ion-row>
-        <ion-col size="2" class="ion-padding">
-          <ion-label>birth date</ion-label>
-        </ion-col>
-        <ion-col size="10" class="ion-padding">
-          <ion-label>{{ person.birthdate }}</ion-label>
-        </ion-col>
-      </ion-row>
-
-      <ion-row>
-        <ion-col size="2" class="ion-padding">
-          <ion-label>notes</ion-label>
-        </ion-col>
-        <ion-col size="10" class="ion-padding">
-          <ion-label>{{ person.notes }}</ion-label>
-        </ion-col>
-      </ion-row>
-
+      <ion-card>
+        <ion-item>
+          <ion-icon name="pin" slot="start"></ion-icon>
+          <ion-label>Category</ion-label>
+          <ion-button color="primary" strong fill="outline" slot="end" 
+          (click)="toggles.category = !toggles.category">{{ toggles.category ? 'Hide' : 'View'}}</ion-button>
+        </ion-item>
+      
+        <ion-card-content *ngIf="toggles.category">
+          <b>{{ person.category }}</b>
+        </ion-card-content>
+      </ion-card>
+      
+  
+      <ion-card>
+        <ion-item>
+          <ion-icon name="pin" slot="start"></ion-icon>
+          <ion-label>Famous As</ion-label>
+          <ion-button color="primary" strong fill="outline" slot="end" 
+          (click)="toggles.famous_as = !toggles.famous_as">{{ toggles.famous_as ? 'Hide' : 'View'}}</ion-button>
+        </ion-item>
+      
+        <ion-card-content *ngIf="toggles.famous_as">
+          <b>{{ person.famous_as }}</b>
+        </ion-card-content>
+      </ion-card>
+  
+      <ion-card>
+        <ion-item>
+          <ion-icon name="pin" slot="start"></ion-icon>
+          <ion-label>Birth Place</ion-label>
+          <ion-button color="primary" strong fill="outline" slot="end" 
+          (click)="toggles.birthplace = !toggles.birthplace">{{ toggles.birthplace ? 'Hide' : 'View'}}</ion-button>
+        </ion-item>
+      
+        <ion-card-content *ngIf="toggles.birthplace">
+          <b>{{ person.birthplace }}</b>
+        </ion-card-content>
+      </ion-card>
+  
+      <ion-card>
+        <ion-item>
+          <ion-icon name="pin" slot="start"></ion-icon>
+          <ion-label>Birth Date</ion-label>
+          <ion-button color="primary" strong fill="outline" slot="end" 
+          (click)="toggles.birthdate = !toggles.birthdate">{{ toggles.birthdate ? 'Hide' : 'View'}}</ion-button>
+        </ion-item>
+      
+        <ion-card-content *ngIf="toggles.birthdate">
+          <b>{{ person.birthdate }}</b>
+        </ion-card-content>
+      </ion-card>
+  
+      <ion-card>
+        <ion-item>
+          <ion-icon name="pin" slot="start"></ion-icon>
+          <ion-label>Biography</ion-label>
+          <ion-button color="primary" strong fill="outline" slot="end" 
+          (click)="toggles.notes = !toggles.notes">{{ toggles.notes ? 'Hide' : 'View'}}</ion-button>
+        </ion-item>
+      
+        <ion-card-content *ngIf="toggles.notes">
+          <b>{{ person.notes }}</b>
+        </ion-card-content>
+      </ion-card>
+  
+    <ion-grid>
       <ion-row *ngIf="photoURL">
         <ion-col size="12" class="ion-padding">
           <ion-img style="height: 300px;" [src]="photoURL"></ion-img>
@@ -89,6 +112,26 @@
       </ion-row>
     </ion-grid>
  
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+        <ion-card-title>Card Title</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+        Keep close to Nature's heart... and break clear away, once in awhile,
+        and climb a mountain or spend a week in the woods. Wash your spirit clean.
+      </ion-card-content>
+    </ion-card>
+    
+
+
+
+
+
+
+
 
   </div>
 </ion-content>

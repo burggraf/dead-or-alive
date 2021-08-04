@@ -14,6 +14,13 @@ export class GamePage implements OnInit {
   public person: People;
   public photoURL: string = '';
   public result: string = '';
+  public toggles: any = {
+    category: false,
+    famous_as: false,
+    birthdate: false,
+    birthplace: false,
+    notes: false
+  };
   constructor(private supabaseService: SupabaseService, public httpClient: HttpClient) { }
 
   ngOnInit() {
@@ -43,11 +50,25 @@ export class GamePage implements OnInit {
       this.result = 'Correct';
     } else {
       this.result = 'Incorrect';
-    }
+    } 
+    this.toggles = {
+      category: true,
+      famous_as: true,
+      birthdate: true,
+      birthplace: true,
+      notes: true
+    };
   }
   nextPerson() {
     this.result = '';
     this.photoURL = '';
+    this.toggles = {
+      category: false,
+      famous_as: false,
+      birthdate: false,
+      birthplace: false,
+      notes: false
+    };
     this.getRandomPerson();
   }
 
