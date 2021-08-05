@@ -4,7 +4,10 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>Dead or Alive</ion-title>
-
+    <ion-label slot="end">
+      <span *ngIf="result.length===0"><b>Value: {{ value }}</b></span>
+      <span *ngIf="result.length > 0"><b>You scored: {{ value }}</b></span>
+    </ion-label>
     <ion-buttons slot="end">
       <ion-button (click)="showCredits = !showCredits">
         <ion-icon slot="icon-only" color="dark" src="/assets/reaper.svg"></ion-icon>

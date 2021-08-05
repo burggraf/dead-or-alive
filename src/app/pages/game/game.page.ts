@@ -24,6 +24,7 @@ export class GamePage implements OnInit {
     notes: false,
     photo: false
   };
+  public value = 15;
   public showCredits = false;
   constructor(private supabaseService: SupabaseService, private changeDetectorRef: ChangeDetectorRef) { }
 
@@ -38,6 +39,7 @@ export class GamePage implements OnInit {
   }
   detect() {
     this.changeDetectorRef.detectChanges();
+    this.calculateValue();
   }
   async getScore() {
     const { data, error } = await this.supabaseService.getScore();
@@ -55,6 +57,7 @@ export class GamePage implements OnInit {
         } else {
           this.photoURL = '/assets/no-image.svg';
         }
+        this.value = 15;
         this.changeDetectorRef.detectChanges();
       } else {
         console.error('error getting person - result is empty');
@@ -62,6 +65,16 @@ export class GamePage implements OnInit {
     }
   }
 
+  calculateValue() {
+    this.value = 15
+    - (this.toggles.category ? 1 : 0)
+    - (this.toggles.birthplace ? 1 : 0)
+    - (this.toggles.famous_as ? 2 : 0)
+    - (this.toggles.birthdate ? 3 : 0)
+    - (this.toggles.notes ? 4 : 0)
+    - (this.toggles.photo ? 2 : 0); 
+    return this.value;
+  }
   async answer(choice: boolean) {
     const isDead = this.person.died?.length > 0;
     if (choice === isDead) {
@@ -81,14 +94,15 @@ export class GamePage implements OnInit {
       score: 0
     }
     if (this.result === 'Correct') {
-      gameData.score = 15
+      gameData.score = this.calculateValue(); /*15
         - (this.toggles.category ? 1 : 0)
         - (this.toggles.birthplace ? 1 : 0)
         - (this.toggles.famous_as ? 2 : 0)
         - (this.toggles.birthdate ? 3 : 0)
         - (this.toggles.notes ? 4 : 0)
-        - (this.toggles.photo ? 2 : 0);
+        - (this.toggles.photo ? 2 : 0);*/
     }
+    this.value = gameData.score;
     this.supabaseService.updateLocalScore(gameData);
     this.toggles = {
       category: true,
