@@ -28,6 +28,9 @@ export class LoginPage implements OnInit {
   async ngOnInit() {
     this.supabaseService.user.subscribe((user: User) => {
       this.user = user;
+      if (user) {
+        this.router.navigateByUrl('/game');
+      } 
     });  
   }
 
@@ -76,6 +79,7 @@ export class LoginPage implements OnInit {
     if (error) {
       this.presentToast(error.message, 3000, 'danger');
     }
+    this.router.navigateByUrl('/login');
   }
 
   // *** utility funcitons

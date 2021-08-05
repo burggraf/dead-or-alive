@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { User } from '@supabase/supabase-js';
-import { SupabaseService } from './services/supabase.service';
 import { Router } from '@angular/router';
+import { User } from '@supabase/supabase-js';
+
+import { SupabaseService } from './services/supabase.service';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,7 @@ export class AppComponent {
   public score: any = null;
 
   public appPages = [
-    { title: 'Game', url: '/game', icon: 'mail' },
+    // { title: 'Game', url: '/game', icon: 'mail' },
   ];
 
   constructor(private supabaseService: SupabaseService, private router: Router) {
@@ -59,7 +60,11 @@ export class AppComponent {
 
   async signOut() {
     const { error } = await this.supabaseService.signOut();
-    console.log('signOut', error);
+    if (error) {
+      console.log('signOut error', error);
+    } else {
+      this.router.navigateByUrl('/login');
+    }
   }
 
 

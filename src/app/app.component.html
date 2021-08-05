@@ -3,7 +3,8 @@
     <ion-menu contentId="main-content" type="overlay">
       <ion-content>
         <ion-list id="inbox-list">
-          <ion-list-header>Dead or Alive</ion-list-header>
+          
+          <ion-list-header><ion-icon size="large" src="/assets/reaper.svg"></ion-icon>&nbsp;&nbsp;Dead or Alive</ion-list-header>
           <ion-note *ngIf="user"><strong>{{ user?.email || '' }}</strong></ion-note>
 
           <ion-menu-toggle auto-hide="false">
@@ -28,20 +29,25 @@
         </ion-list>
 
         <ion-list id="score-list" *ngIf="score">
-          <ion-item><ion-label>Score</ion-label><ion-label slot="end">{{ score.total_score || 0 }}</ion-label></ion-item>
-          <ion-item><ion-label>Turns</ion-label><ion-label slot="end">{{ score.turns || 0 }}</ion-label></ion-item>
-          <ion-item><ion-label>Average</ion-label><ion-label slot="end">{{ (score.turns ? (score.total_score / score.turns) : 0) | number : '1.2-2' }}</ion-label></ion-item>
           <ion-item-divider>
-            <ion-label>
-              Helps Used
+            <ion-label style="width: 100%; text-align: center;">
+              <b>Score</b>
             </ion-label>
           </ion-item-divider>
-          <ion-item><ion-label>Category</ion-label><ion-label slot="end">{{ score.times_used_category || 0 }}</ion-label></ion-item>
-          <ion-item><ion-label>Famous As</ion-label><ion-label slot="end">{{ score.times_used_famous_as || 0 }}</ion-label></ion-item>
-          <ion-item><ion-label>Birth Place</ion-label><ion-label slot="end">{{ score.times_used_birthplace || 0 }}</ion-label></ion-item>
-          <ion-item><ion-label>Birth Date</ion-label><ion-label slot="end">{{ score.times_used_birthdate || 0 }}</ion-label></ion-item>
-          <ion-item><ion-label>Photo</ion-label><ion-label slot="end">{{ score.times_used_photo || 0 }}</ion-label></ion-item>
-          <ion-item><ion-label>Notes</ion-label><ion-label slot="end">{{ score.times_used_notes || 0 }}</ion-label></ion-item>
+          <ion-item class="ion-text-center"><ion-label>Score</ion-label><ion-label slot="end">{{ score.total_score || 0 }}</ion-label></ion-item>
+          <ion-item class="ion-text-center"><ion-label>Turns</ion-label><ion-label slot="end">{{ score.turns || 0 }}</ion-label></ion-item>
+          <ion-item class="ion-text-center"><ion-label>Average</ion-label><ion-label slot="end">{{ (score.turns ? (score.total_score / score.turns) : 0) | number : '1.2-2' }}</ion-label></ion-item>
+          <ion-item-divider>
+            <ion-label style="width: 100%; text-align: center;">
+              <b>Helps Used</b>
+            </ion-label>
+          </ion-item-divider>
+          <ion-item class="ion-text-center"><ion-label>Category</ion-label><ion-label slot="end">{{ score.times_used_category || 0 }}</ion-label></ion-item>
+          <ion-item class="ion-text-center"><ion-label>Famous As</ion-label><ion-label slot="end">{{ score.times_used_famous_as || 0 }}</ion-label></ion-item>
+          <ion-item class="ion-text-center"><ion-label>Birth Place</ion-label><ion-label slot="end">{{ score.times_used_birthplace || 0 }}</ion-label></ion-item>
+          <ion-item class="ion-text-center"><ion-label>Birth Date</ion-label><ion-label slot="end">{{ score.times_used_birthdate || 0 }}</ion-label></ion-item>
+          <ion-item class="ion-text-center"><ion-label>Photo</ion-label><ion-label slot="end">{{ score.times_used_photo || 0 }}</ion-label></ion-item>
+          <ion-item class="ion-text-center"><ion-label>Notes</ion-label><ion-label slot="end">{{ score.times_used_notes || 0 }}</ion-label></ion-item>
         </ion-list>
 
       </ion-content>
