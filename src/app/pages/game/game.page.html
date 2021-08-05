@@ -116,9 +116,10 @@
     
         </ion-col>
         <ion-col class="ion-text-center"><br>
-            <ion-button *ngIf="photoURL && photoURL !== '/assets/no-image.svg'" color="primary" strong fill="outline" [disabled]="result.length===0 && toggles.photo"
+            <ion-button color="primary" strong fill="outline" 
+              [disabled]="(result.length===0 && toggles.photo) || !photoURL || photoURL === '/assets/no-image.svg'"
             (click)="toggles.photo = !toggles.photo">{{ toggles.photo ? 'Hide Photo' : 'View Photo (-2)'}}</ion-button>
-            <ion-img *ngIf="toggles.photo" style="height: 300px;" [src]="photoURL"></ion-img>
+            <ion-img *ngIf="toggles.photo || photoURL === '/assets/no-image.svg'" style="height: 300px;" [src]="photoURL"></ion-img>
         </ion-col>
       </ion-row>
     </ion-grid>
