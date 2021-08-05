@@ -132,6 +132,19 @@ export class SupabaseService {
     return { data, error };
  }
 
+  public updateLocalScore = (gameData: GameData) => {
+    console.log('_score', this._score);
+    this._score.turns++;
+    this._score.total_score += gameData.score;
+    if (gameData.help_birthdate < 0) this._score.times_used_birthdate++;
+    if (gameData.help_birthplace < 0) this._score.times_used_birthplace++;
+    if (gameData.help_category < 0) this._score.times_used_category++;
+    if (gameData.help_famous_as < 0) this._score.times_used_famous_as++;
+    if (gameData.help_notes < 0) this._score.times_used_notes++;
+    if (gameData.help_photo < 0) this._score.times_used_photo++;
+    this.score.next(this._score);
+  }
+
   public saveGameData = async (gamedata: GameData) => {
     const { data, error } = await supabase
     .from('game_data')

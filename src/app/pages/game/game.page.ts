@@ -87,6 +87,7 @@ export class GamePage implements OnInit {
         - (this.toggles.notes ? 4 : 0)
         - (this.toggles.photo ? 2 : 0);
     }
+    this.supabaseService.updateLocalScore(gameData);
     this.toggles = {
       category: true,
       famous_as: true,
