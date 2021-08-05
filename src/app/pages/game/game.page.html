@@ -55,6 +55,10 @@
               <ion-button color="primary" strong fill="outline" slot="end" [disabled]="result.length===0 && toggles.category"
               (click)="toggles.category = !toggles.category">{{ toggles.category ? 'Hide' : 'View (-1)'}}</ion-button>
             </ion-item>
+
+            <ion-card-content class="ion-text-center" *ngIf="!toggles.category">
+              GET RID OF THIS
+            </ion-card-content>
           
             <ion-card-content class="ion-text-center" *ngIf="toggles.category">
               <b>{{ person.category }}</b>
@@ -120,6 +124,7 @@
               [disabled]="(result.length===0 && toggles.photo) || !photoURL || photoURL === '/assets/no-image.svg'"
             (click)="toggles.photo = !toggles.photo">{{ toggles.photo ? 'Hide Photo' : 'View Photo (-2)'}}</ion-button>
             <ion-img *ngIf="toggles.photo || photoURL === '/assets/no-image.svg'" style="height: 300px;" [src]="photoURL"></ion-img>
+            <ion-img *ngIf="photoURL !== '/assets/no-image.svg'" style="height: 300px;" src="/assets/no-image.png"></ion-img>
         </ion-col>
       </ion-row>
     </ion-grid>
