@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { People, GameData } from 'models/Database';
 import { SupabaseService } from 'src/app/services/supabase.service';
 // import { Observable } from 'rxjs/Observable';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+// import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '@supabase/supabase-js';
 
 @Component({
@@ -25,7 +25,7 @@ export class GamePage implements OnInit {
     photo: false
   };
   public showCredits = false;
-  constructor(private supabaseService: SupabaseService, public httpClient: HttpClient) { }
+  constructor(private supabaseService: SupabaseService, private changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.supabaseService.user.subscribe(async (user: User) => {
@@ -36,11 +36,12 @@ export class GamePage implements OnInit {
       }
     });
   }
-
+  detect() {
+    this.changeDetectorRef.detectChanges();
+  }
   async getScore() {
     const { data, error } = await this.supabaseService.getScore();
     if (error) console.error('getScore ERROR', error);
-    else console.log('score', data);
   }
 
   async getRandomPerson() {
@@ -54,8 +55,9 @@ export class GamePage implements OnInit {
         } else {
           this.photoURL = '/assets/no-image.svg';
         }
+        this.changeDetectorRef.detectChanges();
       } else {
-        console.error('error getting person - array is empty');
+        console.error('error getting person - result is empty');
       }
     }
   }
@@ -96,6 +98,7 @@ export class GamePage implements OnInit {
       notes: true,
       photo: true
     };
+    this.changeDetectorRef.detectChanges();
     if (this.user) {
       const { data, error } = await this.supabaseService.saveGameData(gameData);
       if (error) console.error('saveGameData ERROR', error);

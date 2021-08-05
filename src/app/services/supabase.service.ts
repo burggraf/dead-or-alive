@@ -126,6 +126,9 @@ export class SupabaseService {
     if (error) {
       console.error('getScore error', error);
     } else {
+      for (const key in data) {
+        if (data[key] === null) data[key] = 0;
+      }
       this._score = data;
       this.score.next(data);
     } 
@@ -133,7 +136,6 @@ export class SupabaseService {
  }
 
   public updateLocalScore = (gameData: GameData) => {
-    console.log('_score', this._score);
     this._score.turns++;
     this._score.total_score += gameData.score;
     if (gameData.help_birthdate < 0) this._score.times_used_birthdate++;

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '@supabase/supabase-js';
 
@@ -17,7 +17,7 @@ export class AppComponent {
     // { title: 'Game', url: '/game', icon: 'mail' },
   ];
 
-  constructor(private supabaseService: SupabaseService, private router: Router) {
+  constructor(private supabaseService: SupabaseService, private router: Router, private changeDetectorRef: ChangeDetectorRef) {
     // console.log('window.location.search', window.location.search);
     if (window.location.search) {
       // get provider token from window.location.search
@@ -34,7 +34,10 @@ export class AppComponent {
     });
 
     this.supabaseService.score.subscribe((score: any) => {
-      this.score = score;
+      if (score) {
+        this.score = score;
+        this.changeDetectorRef.detectChanges();
+      }
     });
 
     // handle password recovery links
