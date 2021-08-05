@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { keys } from 'src/environments/supabase';
 import { Device } from '@capacitor/device';
 import { People, GameData } from 'models/Database';
+import { Score } from 'models/Score';
 
 const supabase: SupabaseClient = createClient(keys.SUPABASE_URL, keys.SUPABASE_KEY);
 
@@ -15,6 +16,9 @@ export class SupabaseService {
   public user = new BehaviorSubject<User>(null);
   private _user: User = null;
 
+  public score = new BehaviorSubject<any>(null);
+  private _score: any = null;
+
   constructor() {
     // Try to recover our user session
     this.loadUser();
@@ -25,6 +29,8 @@ export class SupabaseService {
       } else {
         this._user = null;
         this.user.next(null);
+        this._score = null;
+        this.score.next(null);
       }
     });
   }
@@ -109,18 +115,22 @@ export class SupabaseService {
   }
 
   public getRandomPerson = async () => {
-    /*
-    const { data, error } = await supabase
-      .from('people')
-      .select('*')
-      .order('id')
-      .gte('id', this.uuid())
-      .limit(1);
-      */
      const { data, error } = await supabase
      .rpc('get_random_person');
      return { data, error };
   }
+
+  public getScore = async () => {
+    const { data, error } = await supabase
+    .rpc('get_score');
+    if (error) {
+      console.error('getScore error', error);
+    } else {
+      this._score = data;
+      this.score.next(data);
+    } 
+    return { data, error };
+ }
 
   public saveGameData = async (gamedata: GameData) => {
     const { data, error } = await supabase

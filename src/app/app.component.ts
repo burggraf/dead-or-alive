@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   public user: User = null;
+  public score: any = null;
 
   public appPages = [
     { title: 'Game', url: '/game', icon: 'mail' },
@@ -29,6 +30,10 @@ export class AppComponent {
     this.supabaseService.user.subscribe((user: User) => {
       this.user = user;
       this.supabaseService.logDeviceInfo(user?.id || '');
+    });
+
+    this.supabaseService.score.subscribe((score: any) => {
+      this.score = score;
     });
 
     // handle password recovery links

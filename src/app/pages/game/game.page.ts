@@ -30,8 +30,17 @@ export class GamePage implements OnInit {
   ngOnInit() {
     this.supabaseService.user.subscribe(async (user: User) => {
       this.user = user;
-      this.getRandomPerson();
+      if (user) {
+        this.getScore();
+        this.getRandomPerson();
+      }
     });
+  }
+
+  async getScore() {
+    const { data, error } = await this.supabaseService.getScore();
+    if (error) console.error('getScore ERROR', error);
+    else console.log('score', data);
   }
 
   async getRandomPerson() {
