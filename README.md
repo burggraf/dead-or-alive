@@ -117,4 +117,4 @@ Notes:  This function generates a random UUID using `uuid_generate_v4()`, then u
 - [PostgreSQL](https://postgresql.org)
 
 ### Hosting
-- [Vercel](https://vercel.com)
+- [Vercel](https://vercel.com) NOTE: I prefer to deploy to Vercel manually using `ionic build --prod && vercel --prod` rather than to link Vercel to my Github repo.
