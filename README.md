@@ -105,5 +105,3 @@ $$
 
 Notes:  This function generates a random UUID using `uuid_generate_v4()`, then uses the primary `id` key to get a random person.  The clause `where id not in (select person_id from game_data where game_data.user_id = uid())` weeds out all the people the current user (whose id comes from `uid()`) has seen.  Helper functions such as `uid()`, `email()`, and `role()` can be used for selecting data and also for doing complex security checking inside your functions.  We don't need that here, but it's available if we did!
 
-
-
