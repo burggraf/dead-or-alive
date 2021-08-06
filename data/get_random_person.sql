@@ -1,4 +1,3 @@
-drop function get_random_person();
 create or replace function public.get_random_person()
    returns jsonb
    language plpgsql

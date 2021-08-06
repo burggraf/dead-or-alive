@@ -63,10 +63,47 @@ Preety cool stuff.  Plus, it's storing `JSON` data inside the `People` table, wh
 
 #### Biographies / Notes
 
-THe same process was used to get any missing (short) bios for people in the database.  Basically we pick up the first paragraph of the person's Wikipedia article.
+The same process was used to get any missing (short) bios for people in the database.  Basically we pick up the first paragraph of the person's Wikipedia article.  A `PostgreSQL Function` handles this, and it (`get_bio_text()`), like `get_photo_info()` is written in `Javascript` using the [PostgreSQL PLV8 Extension](https://plv8.github.io/) and my [Supascript Library](https://github.com/burggraf/supascript) to make things easier.
 
 ```
 UPDATE PEOPLE SET notes = get_bio_text(name) where notes is null;
 ```
+
+#### No Server Functions Needed
+
+Part of the beauty of Supabase is that the client can talk to the database directly, so there's no "middle tier".  This is both faster (fewer moving parts, fewer "hops" for the data to go through) and easier since there's no middleware layer to write.  Once the user authenticates, they get a secure token allowing them to talk to the database, and database security rules are written in SQL using [PostgreSQL Row Level Security](https://www.postgresql.org/docs/9.5/ddl-rowsecurity.html). 
+
+Supabase makes this really easy using their [Supabase Javascript API](https://supabase.io/docs/reference/javascript/select).  Cut an paste those examples into your code and you're up and running in a few minutes.  Still too lazy to put in your own table and column names into your code?  The Supabase dashboard even pre-populates your table information in their API docs so you can just cut and paste the pieces you need.  It's really cool.
+
+#### When the SQL Gets Too Complicated
+
+Sometimes, though, the SQL you want to write gets a little too complicated for the Javascript API, which is designed for simplicity and security.  No problem -- PostgreSQL has you covered.  Just write a `PostgreSQL Function` and call it from the Javascript API using the [Javascript RPC - Remote Procedure Call](https://supabase.io/docs/reference/javascript/rpc).
+
+The logic used to get a random person needed a function here, because we want to:
+
+- Select a random person from the database, AND
+- Make sure that you never get the same person twice
+
+To do the second thing here, we need to check the list of people the user has already seen and avoid those people.  So here's the function:
+
+```
+create or replace function public.get_random_person()
+   returns jsonb
+   language plpgsql
+  as
+$$
+declare 
+retval record;
+begin
+  select * from people 
+  where id not in (select person_id from game_data where game_data.user_id = uid())
+  and id >= extensions.uuid_generate_v4() order by id limit 1 into retval;
+  return to_jsonb(retval);  
+end;
+$$
+```
+
+Notes:  This function generates a random UUID using `uuid_generate_v4()`, then uses the primary `id` key to get a random person.  The clause `where id not in (select person_id from game_data where game_data.user_id = uid())` weeds out all the people the current user (whose id comes from `uid()`) has seen.  Helper functions such as `uid()`, `email()`, and `role()` can be used for selecting data and also for doing complex security checking inside your functions.  We don't need that here, but it's available if we did!
+
 
 
