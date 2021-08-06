@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { User } from '@supabase/supabase-js';
 
 import { SupabaseService } from './services/supabase.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,10 @@ export class AppComponent {
     // { title: 'Game', url: '/game', icon: 'mail' },
   ];
 
-  constructor(private supabaseService: SupabaseService, private router: Router, private changeDetectorRef: ChangeDetectorRef) {
+  constructor(private supabaseService: SupabaseService, 
+              private router: Router, 
+              private changeDetectorRef: ChangeDetectorRef,
+              private alertController:AlertController) {
     // console.log('window.location.search', window.location.search);
     if (window.location.search) {
       // get provider token from window.location.search
@@ -61,8 +65,45 @@ export class AppComponent {
     if (error) {
       console.log('signOut error', error);
     } else {
+      this.score = null;
       this.router.navigateByUrl('/login');
     }
+  }
+
+  async deleteAccount() {
+    const alert = await this.alertController.create({
+      cssClass: 'deleteAccount',
+      header: 'Delete Account',
+      message: '<b>Are you sure you wish to delete your account and all your data?  There is no way to recover your data.</b>',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          // cssClass: 'secondary',
+          handler: (blah) => {
+
+          }
+        }, {
+          text: 'DELETE',
+          handler: async () => {
+            const { data, error } = await this.supabaseService.delete_my_account_and_data();
+            if (error) {
+              console.error('delete_my_account_and_data error', error);
+            } else {
+              const result: string = data.toString();
+              if (result === 'success') {
+                await this.signOut();
+                this.score = null;
+                this.router.navigateByUrl('/login');
+              }
+            }
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+
   }
 
 

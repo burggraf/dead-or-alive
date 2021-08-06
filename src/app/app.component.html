@@ -51,6 +51,9 @@
         </ion-list>
 
       </ion-content>
+      <ion-footer class="ion-padding ion-text-center" *ngIf="user">
+        <ion-button size="small" color="light" strong (click)="deleteAccount()">Delete my account</ion-button>
+      </ion-footer>
     </ion-menu>
     <ion-router-outlet id="main-content"></ion-router-outlet>
   </ion-split-pane>

@@ -117,3 +117,7 @@ ion-note {
 ion-item.selected {
   --color: var(--ion-color-primary);
 }
+
+.deleteAccount {
+  color: var(--ion-color-danger);
+}

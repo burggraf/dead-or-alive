@@ -178,14 +178,12 @@ export class SupabaseService {
     }
   };
 
-  public uuid() {
-    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (char) => {
-      let random = Math.random() * 16 | 0;
-      let value = char === "x" ? random : (random % 4 + 8);
-      return value.toString(16);     
-    });
+  public async delete_my_account_and_data() {
+    const { data, error } = await supabase
+    .rpc('delete_my_account_and_data');
+    return { data, error };
   }
-
+  
 
 
 }
