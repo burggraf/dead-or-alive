@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
+import { Device } from '@capacitor/device';
 import { createClient, Provider, SupabaseClient, User } from '@supabase/supabase-js';
+import { GameData, People } from 'models/Database';
+import { Score } from 'models/Score';
 import { BehaviorSubject } from 'rxjs';
 import { keys } from 'src/environments/supabase';
-import { Device } from '@capacitor/device';
-import { People, GameData } from 'models/Database';
-import { Score } from 'models/Score';
 
 const supabase: SupabaseClient = createClient(keys.SUPABASE_URL, keys.SUPABASE_KEY);
 
@@ -130,10 +130,23 @@ export class SupabaseService {
         if (data[key] === null) data[key] = 0;
       }
       this._score = data;
-      this.score.next(data);
+      this._score.majorStreak = await this.getStreak(15);
+      this._score.minorStreak = await this.getStreak(1);
+      console.log('this._score', this._score);
+      this.score.next(this._score);
     } 
     return { data, error };
  }
+ public getStreak = async (min_score: number) => {
+  const { data, error } = await supabase
+  .rpc('get_streak', {"min_score": min_score});
+  if (error) {
+    console.error('getStreak error', error);
+    return 0;
+  } else {
+    return data;
+  }
+}
 
   public updateLocalScore = (gameData: GameData) => {
     this._score.turns++;
@@ -144,6 +157,16 @@ export class SupabaseService {
     if (gameData.help_famous_as < 0) this._score.times_used_famous_as++;
     if (gameData.help_notes < 0) this._score.times_used_notes++;
     if (gameData.help_photo < 0) this._score.times_used_photo++;
+    if (gameData.score === 15) {
+      this._score.majorStreak++;
+      this._score.minorStreak++;
+    } else if (gameData.score > 1) {
+      this._score.majorStreak = 0;
+      this._score.minorStreak++;
+    } else {
+      this._score.majorStreak = 0;
+      this._score.minorStreak = 0;
+    }
     this.score.next(this._score);
   }
 

@@ -1,9 +1,9 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { People, GameData } from 'models/Database';
-import { SupabaseService } from 'src/app/services/supabase.service';
-// import { Observable } from 'rxjs/Observable';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+// import { User } from 'rxjs/Observable';
 // import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '@supabase/supabase-js';
+import { GameData, People } from 'models/Database';
+import { SupabaseService } from 'src/app/services/supabase.service';
 
 @Component({
   selector: 'app-game',
@@ -16,6 +16,8 @@ export class GamePage implements OnInit {
   public person: People;
   public photoURL: string = '';
   public result: string = '';
+  public majorStreak: number = 0;
+  public minorStreak: number = 0;
   public toggles: any = {
     category: false,
     famous_as: false,

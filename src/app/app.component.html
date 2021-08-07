@@ -31,6 +31,13 @@
         <ion-list id="score-list" *ngIf="score">
           <ion-item-divider>
             <ion-label style="width: 100%; text-align: center;">
+              <b>Streak</b>
+            </ion-label>
+          </ion-item-divider>
+          <ion-item class="ion-text-center"><ion-label>Score 15</ion-label><ion-label slot="end">{{ score.majorStreak || 0 }}</ion-label></ion-item>
+          <ion-item class="ion-text-center"><ion-label>Correct</ion-label><ion-label slot="end">{{ score.minorStreak || 0 }}</ion-label></ion-item>
+          <ion-item-divider>
+            <ion-label style="width: 100%; text-align: center;">
               <b>Score</b>
             </ion-label>
           </ion-item-divider>
