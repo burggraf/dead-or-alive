@@ -35,6 +35,7 @@ Here's what this little program can do:
 - Option to delete user account and all releated data
 - Randomly select Famous People from a database of over 1,000, stored in a PostgreSQL database.  (This was originally over 500,000, but getting the data down to a reasonable set of recognizable famous names is incredibly difficult.  It still needs a lot of work.)
 - Saves your data back to PostgreSQL, and gives you running stats about your game performance.
+- Calculates and displays live Streak information.  (See my [SQL Challenge](SQL_Challenge.md).)
 - Runs as a PWA (Progressive Web App) on mobile and desktop systems.
 - Can be compiled as a native app for IOS and Android using the existing code base.
 - UI automatically respects the light or dark mode setting of your desktop or mobile device operating system.
