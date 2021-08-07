@@ -64,7 +64,7 @@ $$
 
 ### Ignore the fact that this is a PostgreSQL function
 
-If you don't know anything about `PostgreSQL functions` or the `PLPGSQL` lanaguage, don't worry.  Just skip the beginning and the end and look at the SQL code in between `begin` and `end`.  The only think you really need to know is that we're passing a value called `min_score` to this function and using that value in the SQL query.
+If you don't know anything about `PostgreSQL functions` or the `PLPGSQL` lanaguage, don't worry.  Just skip the beginning and the end and look at the SQL code in between `begin` and `end`.  The only thing you really need to know is that we're passing a value called `min_score` to this function and using that value in the SQL query.
 
 ### Writing Difficult SQL INSIDE-OUT
 
@@ -91,11 +91,11 @@ and score = 0 /* later we just change this to score < min_score so we can handle
 order by created_at desc limit 1
 ```
 
-NOTE:  auth.uid() returns the id of the user who is currently logged in.  You can use this in any of your functions as well as auth.email() and auth.role().
+NOTE:  `auth.uid()` returns the id of the user who is currently logged in.  You can use this in any of your functions as well as `auth.email()` and `auth.role()`.
 
 Ok, now that we know the timestamp of the last record where the user failed, we just need to count all the records AFTER that point in time.
 
-#### Problem 2:  List all rows from `game_data` from user X since the last FAIL time
+#### Problem 2:  List all rows from `game_data` for user X since the last FAIL time
 
 ``` sql
 select score from game_data where user_id = auth.uid()
@@ -157,7 +157,7 @@ declare
 retval record;
 ```
 
-Since we have this variable (or bucket, per say) we can dump the `record` (row) we got into this `retval` bucket.  Now that our `retval` variable contains a row that's the result of our query, we can use `return (retval.streak::integer)` to return it to our app.  The `::integer` part just converts the column to an integer, because that's what we really want here -- an integer (or null is fine, too).
+Since we have this variable (or bucket, per se) we can dump the `record` (row) we got into this `retval` bucket.  Now that our `retval` variable contains a row that's the result of our query, we can use `return (retval.streak::integer)` to return it to our app.  The `::integer` part just converts the column to an integer, because that's what we really want here -- an integer (or null is fine, too).
 
 #### Problem 4:  Making it work for Major Streak or Minor Streak
 

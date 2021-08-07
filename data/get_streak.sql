@@ -9,11 +9,11 @@ begin
 
     select count(*) as streak from 
     (
-        select score from game_data where user_id = uid()
+        select score from game_data where user_id = auth.uid()
         and created_at >
         (
             select created_at from game_data where 
-            user_id = uid()
+            user_id = auth.uid()
             and score < min_score
             order by created_at desc limit 1
         ) 
